@@ -2,6 +2,8 @@ package com.xilan.bengin.service;
 
 import com.xilan.bengin.entity.WXAccessTokenModel;
 import com.xilan.bengin.entity.WXSessionAndIdModel;
+import com.xilan.bengin.pojo.User;
+import com.xilan.common.vo.PageResult;
 
 /**
  * @author like
@@ -12,5 +14,5 @@ public interface LoginService {
     WXSessionAndIdModel getOpenIdAndSeesionKey(String code);
     void getUserInfo(String openId);
     WXAccessTokenModel getAccessToken();
-    String addUser(String code, String rawData,String signature);
+    PageResult<User> addUser(String code, String rawData, String signature);
 }

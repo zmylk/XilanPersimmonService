@@ -2,19 +2,24 @@ package com.xilan.bengin.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.xilan.bengin.entity.WXAccessTokenModel;
 import com.xilan.bengin.entity.WXSessionAndIdModel;
 import com.xilan.bengin.map.UserMapper;
 import com.xilan.bengin.pojo.User;
 import com.xilan.bengin.service.LoginService;
+import com.xilan.common.enums.ExceptionEnumm;
+import com.xilan.common.exception.LyException;
 import com.xilan.common.utils.JsonUtils;
 import com.xilan.common.utils.http.HttpClientUtil;
+import com.xilan.common.vo.PageResult;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,13 +92,17 @@ public class LoginServiceImpl implements LoginService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         WXAccessTokenModel wxAccessTokenModel = JsonUtils.parse(wxResult, WXAccessTokenModel.class);
 
         return wxAccessTokenModel;
     }
 
     @Override
-    public String addUser(String code, String rawData, String signature) {
+    public PageResult<User> addUser(String code, String rawData, String signature) {
+        if (code==null){
+            throw new LyException(ExceptionEnumm.LIKE_NOW_TEST_ERRO);
+        }
         JSONObject rawDataJson = JSON.parseObject(rawData);
         WXSessionAndIdModel openIdAndSeesionKey = getOpenIdAndSeesionKey(code);
         String openid = openIdAndSeesionKey.getOpenid();
@@ -111,7 +120,6 @@ public class LoginServiceImpl implements LoginService {
             String city = rawDataJson.getString("city");
             String country = rawDataJson.getString("country");
             String province = rawDataJson.getString("province");
-
             user = new User();
             user.setOpenId(openid);
             user.setSkey(skey);
@@ -130,6 +138,9 @@ public class LoginServiceImpl implements LoginService {
             user.setSkey(skey);
             userMapper.updateByPrimaryKey(user);
         }
-        return skey;
+        ArrayList<User> userArrayList = new ArrayList<>();
+        PageInfo<User> userPageInfo = new PageInfo<>(userArrayList);
+
+        return new PageResult<User>(userPageInfo.getTotal(),userArrayList);
     }
 }

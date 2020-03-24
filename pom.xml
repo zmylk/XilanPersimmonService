@@ -19,6 +19,7 @@
 
     <properties>
         <mapper.starter.version>2.0.3</mapper.starter.version>
+        <pageHelper.starter.version>1.2.3</pageHelper.starter.version>
     </properties>
 
     <groupId>com.xilan.XilanPersimmonService</groupId>
@@ -38,6 +39,12 @@
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper-spring-boot-starter</artifactId>
                 <version>${mapper.starter.version}</version>
+            </dependency>
+            <!-- 分页助手启动器 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pageHelper.starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

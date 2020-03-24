@@ -1,6 +1,8 @@
 server:
   port: 8080
 spring:
+  swagger:
+    enable: true
   datasource:
     url: jdbc:mysql://localhost:3306/xilandb?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
@@ -11,4 +13,5 @@ xilan:
   base:
     appid: wx5f2cfd0f5d5a3f1c
     secret: a5e99a999e5f498a6d414da8d73b6f84
+
 
