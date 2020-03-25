@@ -24,7 +24,6 @@ public class TimeOpeServiceImpl implements TimeOpeService {
     TimeOpeMapper timeOpeMapper;
     @Autowired
     private StringRedisTemplate redisTemplate;
-    IdWorker idWorker = new IdWorker();
     @Override
     public void addRecording(String openId) {
         String statTime = redisTemplate.opsForValue().get(openId);

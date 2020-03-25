@@ -139,6 +139,7 @@ public class LoginServiceImpl implements LoginService {
             userMapper.updateByPrimaryKey(user);
         }
         ArrayList<User> userArrayList = new ArrayList<>();
+        userArrayList.add(user);
         PageInfo<User> userPageInfo = new PageInfo<>(userArrayList);
 
         return new PageResult<User>(userPageInfo.getTotal(),userArrayList);

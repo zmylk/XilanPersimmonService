@@ -35,7 +35,7 @@ public class WXLoginController {
         User user = items.get(0);
         String openId = user.getOpenId();
         HashMap<String, String> map = new HashMap<>();
-        map.put("openId", openId);
+        map.put("skey", openId);
         return map;
     }
 
