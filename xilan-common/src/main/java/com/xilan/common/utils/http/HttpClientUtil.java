@@ -94,7 +94,6 @@ public class HttpClientUtil {
 		}
 		param = param.substring(0,param.length()-1);
 		String urlNameString = url + "?" + param;
-		System.out.println(urlNameString);
 		HttpGet httpGet = new HttpGet(urlNameString);
 		HttpResponse response = httpClient.execute(httpGet);
 		if(response != null){
