@@ -14,5 +14,5 @@ public interface LoginService {
     WXSessionAndIdModel getOpenIdAndSeesionKey(String code);
     void getUserInfo(String openId);
     WXAccessTokenModel getAccessToken();
-    PageResult<User> addUser(String code, String rawData, String signature);
+    User addUser(String code, String rawData, String signature);
 }

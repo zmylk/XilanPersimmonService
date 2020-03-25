@@ -6,6 +6,7 @@ import com.xilan.bengin.service.LoginService;
 import com.xilan.common.enums.ExceptionEnumm;
 import com.xilan.common.exception.LyException;
 import com.xilan.common.vo.PageResult;
+import com.xilan.common.vo.R;
 import com.xilan.common.vo.SimpleResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,21 +27,17 @@ public class WXLoginController {
 
     @PostMapping("wx/login")
     @ResponseBody
-    public SimpleResult wxLogin(@RequestParam(value = "code", required = false) String code,
+    public R wxLogin(@RequestParam(value = "code", required = false) String code,
                                 @RequestParam(value = "rawData", required = false) String rawData,
                                 @RequestParam(value = "signature", required = false) String signature,
                                 @RequestParam(value = "encrypteData", required = false) String encrypteData,
                                 @RequestParam(value = "iv", required = false) String iv) {
-        PageResult<User> userPageResult = loginService.addUser(code, rawData, signature);
-        List<User> items = userPageResult.getItems();
-        User user = items.get(0);
-        String openId = user.getOpenId();
+        User userRes = loginService.addUser(code, rawData, signature);
+        String openId = userRes.getOpenId();
         HashMap<String, String> map = new HashMap<>();
         map.put("skey", openId);
-        SimpleResult SimpleResult = new SimpleResult();
-        SimpleResult.setData(map);
-        SimpleResult.setStatus(200);
-        return SimpleResult;
+        map.put("status","200");
+        return R.ok(map);
     }
 
 }

@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public enum ExceptionEnumm {
-    PRICE_CANNOT_BE_NULL(400,"几个不能为空！"),
+    CODE_CANNOT_BE_NULL(400,"code值不可以是null"),
+    SIGNATURE_CHECK_BE_FAIL(500,"签名校验失败"),
     LIKE_NOW_TEST_ERRO(400,"测试统异常返回")
             ;
 

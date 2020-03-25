@@ -99,9 +99,9 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public PageResult<User> addUser(String code, String rawData, String signature) {
+    public User addUser(String code, String rawData, String signature) {
         if (code==null){
-            throw new LyException(ExceptionEnumm.LIKE_NOW_TEST_ERRO);
+            throw new LyException(ExceptionEnumm.CODE_CANNOT_BE_NULL);
         }
         JSONObject rawDataJson = JSON.parseObject(rawData);
         WXSessionAndIdModel openIdAndSeesionKey = getOpenIdAndSeesionKey(code);
@@ -110,7 +110,7 @@ public class LoginServiceImpl implements LoginService {
         User user = userMapper.selectByPrimaryKey(openIdAndSeesionKey.getOpenid());
         String signature2 = DigestUtils.sha1Hex(rawData + sessionKey);
         if (!signature.equals(signature2)) {
-            System.out.println("++++++++false++++++++++++");
+            throw new LyException(ExceptionEnumm.SIGNATURE_CHECK_BE_FAIL);
         }
         String skey ="!@##$$%%^^";
         if (user==null){
@@ -142,6 +142,6 @@ public class LoginServiceImpl implements LoginService {
         userArrayList.add(user);
         PageInfo<User> userPageInfo = new PageInfo<>(userArrayList);
 
-        return new PageResult<User>(userPageInfo.getTotal(),userArrayList);
+        return user;
     }
 }
