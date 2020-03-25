@@ -3,6 +3,8 @@ package com.xilan.bengin.service.Impl;
 import com.xilan.bengin.map.TimeOpeMapper;
 import com.xilan.bengin.pojo.TimeOpe;
 import com.xilan.bengin.service.TimeOpeService;
+import com.xilan.common.enums.ExceptionEnumm;
+import com.xilan.common.exception.LyException;
 import com.xilan.common.utils.IdWorker;
 import com.xilan.common.utils.time.TimeOper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,14 @@ public class TimeOpeServiceImpl implements TimeOpeService {
             timeOpe.setHour(hour);
             timeOpeMapper.insert(timeOpe);
         }
+    }
+
+    @Override
+    public String isBegin(String openId) {
+        if (openId==null){
+            throw new LyException(ExceptionEnumm.CODE_CANNOT_BE_NULL);
+        }
+        String statTime = redisTemplate.opsForValue().get(openId);
+        return statTime;
     }
 }

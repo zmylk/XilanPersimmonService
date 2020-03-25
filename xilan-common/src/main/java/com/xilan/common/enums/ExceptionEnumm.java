@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum ExceptionEnumm {
     CODE_CANNOT_BE_NULL(400,"code值不可以是null"),
+    OPENID_CANNOT_BE_NULL(400,"openId值不可以是null"),
     SIGNATURE_CHECK_BE_FAIL(500,"签名校验失败"),
     LIKE_NOW_TEST_ERRO(400,"测试统异常返回")
             ;

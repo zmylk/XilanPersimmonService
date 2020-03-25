@@ -38,9 +38,9 @@ public class TimeOper {
     public static String FORMAT_FULL_CN = "yyyy年MM月dd日  HH时mm分ss秒SSS毫秒";
 
 
-
     public static void main(String[] args) throws ParseException {
-        System.out.println(getTimeString());
+        System.out.println(daysBetween(new Date(),new Date()));
+        System.out.println(getTimeString(new Date()));
         System.out.println(getTimeDate(getTimeString()));
         System.out.println("返回日期年份:"+getYear(new Date()));
         System.out.println("返回月份："+getMonth(new Date()));
@@ -60,6 +60,10 @@ public class TimeOper {
         SimpleDateFormat df = new SimpleDateFormat(FORMAT_FULL);
         Calendar calendar = Calendar.getInstance();
         return df.format(calendar.getTime());
+    }
+    public static String getTimeString(Date date) {
+        SimpleDateFormat df = new SimpleDateFormat(FORMAT_FULL);
+        return df.format(date);
     }
 
     /**
@@ -163,5 +167,17 @@ public class TimeOper {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.getTimeInMillis();
+    }
+    /**
+     * 计算两个日期之间的天数
+     */
+    public static int daysBetween(Date preTime, Date lastTime) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(preTime);
+        long time1 = cal.getTimeInMillis();
+        cal.setTime(lastTime);
+        long time2 = cal.getTimeInMillis();
+        long between_days=(time2-time1)/(1000*3600*24);
+        return Integer.parseInt(String.valueOf(between_days));
     }
 }

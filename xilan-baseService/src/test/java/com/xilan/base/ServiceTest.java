@@ -2,8 +2,10 @@ package com.xilan.base;
 
 import com.xilan.bengin.BaseServiceApplication;
 import com.xilan.bengin.entity.WXAccessTokenModel;
+import com.xilan.bengin.pojo.User;
 import com.xilan.bengin.service.Impl.LoginServiceImpl;
 import com.xilan.bengin.service.TimeOpeService;
+import com.xilan.bengin.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +25,23 @@ public class ServiceTest {
     private LoginServiceImpl loginService;
     @Autowired
     private TimeOpeService timeOpeService;
+    @Autowired
+    private UserService userService;
 
-    @Test
-    public void getAccessTokenTest(){
-        WXAccessTokenModel accessToken = loginService.getAccessToken();
-        System.out.println(accessToken);
-    }
-
-    //o4dta5Ls4UVCXBR3aOImFGtNXbyQ
-    //o4dta5Ls4UVCXBR3aOImFGtNXbyQ
-    @Test
-    public void getUserInfoTest(){
-        loginService.getUserInfo("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
-    }
 
     @Test
     public void addTime(){
         timeOpeService.addRecording("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+    }
+
+    @Test
+    public void getUser(){
+        User usr = userService.getUserById("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+        System.out.println(usr);
+    }
+
+    @Test
+    public void getDay(){
+        Integer integer = userService.useTime("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
     }
 }

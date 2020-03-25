@@ -7,4 +7,5 @@ package com.xilan.bengin.service;
  */
 public interface TimeOpeService {
     void addRecording(String openId);
+    String isBegin(String openId);
 }

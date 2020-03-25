@@ -11,8 +11,7 @@ import com.xilan.common.vo.PageResult;
  * @date 2020/3/23 22:14
  */
 public interface LoginService {
-    WXSessionAndIdModel getOpenIdAndSeesionKey(String code);
-    void getUserInfo(String openId);
-    WXAccessTokenModel getAccessToken();
+
     User addUser(String code, String rawData, String signature);
+
 }
