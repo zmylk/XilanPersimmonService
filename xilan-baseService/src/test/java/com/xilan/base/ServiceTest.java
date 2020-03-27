@@ -44,4 +44,10 @@ public class ServiceTest {
     public void getDay(){
         Integer integer = userService.useTime("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
     }
+
+    @Test
+    public void getBeginTime(){
+        long time = timeOpeService.isBeginTime("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+        System.out.println(time);
+    }
 }

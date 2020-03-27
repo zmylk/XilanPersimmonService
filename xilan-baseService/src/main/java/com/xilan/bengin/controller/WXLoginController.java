@@ -35,7 +35,7 @@ public class WXLoginController {
         User userRes = loginService.addUser(code, rawData, signature);
         String openId = userRes.getOpenId();
         HashMap<String, String> map = new HashMap<>();
-        map.put("skey", openId);
+        map.put("openid", openId);
         map.put("status","200");
         return R.ok(map);
     }

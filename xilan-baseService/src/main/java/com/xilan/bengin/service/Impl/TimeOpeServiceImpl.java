@@ -27,8 +27,9 @@ public class TimeOpeServiceImpl implements TimeOpeService {
     @Autowired
     private StringRedisTemplate redisTemplate;
     @Override
-    public void addRecording(String openId) {
+    public TimeOpe addRecording(String openId) {
         String statTime = redisTemplate.opsForValue().get(openId);
+        TimeOpe timeOpe = new TimeOpe();
         if (statTime==null){
             String timeString = TimeOper.getTimeString();
             redisTemplate.opsForValue().set(openId,timeString,1, TimeUnit.DAYS);
@@ -42,7 +43,7 @@ public class TimeOpeServiceImpl implements TimeOpeService {
             System.out.println(redisStart);
             System.out.println(year);
             Date redisEnd = new Date();
-            TimeOpe timeOpe = new TimeOpe();
+            timeOpe = new TimeOpe();
             timeOpe.setOpenId(openId);
             timeOpe.setStartime(redisStart);
             timeOpe.setEndtime(redisEnd);
@@ -52,14 +53,16 @@ public class TimeOpeServiceImpl implements TimeOpeService {
             timeOpe.setHour(hour);
             timeOpeMapper.insert(timeOpe);
         }
+        return timeOpe;
     }
 
     @Override
-    public String isBegin(String openId) {
+    public long isBeginTime(String openId) {
         if (openId==null){
             throw new LyException(ExceptionEnumm.CODE_CANNOT_BE_NULL);
         }
         String statTime = redisTemplate.opsForValue().get(openId);
-        return statTime;
+        Date timeDate = TimeOper.getTimeDate(statTime);
+        return timeDate.getTime();
     }
 }

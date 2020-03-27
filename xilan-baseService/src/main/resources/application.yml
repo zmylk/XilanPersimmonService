@@ -1,16 +1,15 @@
 server:
   port: 8080
 spring:
-  swagger:
-    enable: true
   datasource:
-    url: jdbc:mysql://localhost:3306/xilandb?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://47.94.240.95:3306/xilandb?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
-    password: root
+    password: '!@#$%15049225782'
     driver-class-name: com.mysql.jdbc.Driver
   # 配置redis
-    redis:
-      host: 127.0.0.1
+  redis:
+    host: 47.102.136.35
+    password: dyydyy
 
 xilan:
   base:
