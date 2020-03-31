@@ -1,6 +1,9 @@
 package com.xilan.bengin.service;
 
+import com.xilan.bengin.entity.EventList;
 import com.xilan.bengin.pojo.User;
+
+import java.util.List;
 
 /**
  * @author like
@@ -10,4 +13,5 @@ import com.xilan.bengin.pojo.User;
 public interface UserService {
     User getUserById(String openId);
     Integer useTime(String openId);
+
 }

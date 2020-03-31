@@ -48,17 +48,17 @@ public class TimeOpe {
      */
     private Integer hour;
     /**
-     * 评价5
+     * 学习时长
      */
     private Integer evaluation1;
     /**
-     * 评价5
+     * 评分
      */
     private Integer evaluation2;
     /**
-     * 评价5
+     * 事项
      */
-    private Integer evaluation3;
+    private String evaluation3;
     /**
      * 评价5
      */

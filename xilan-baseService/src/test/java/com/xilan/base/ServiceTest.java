@@ -1,6 +1,7 @@
 package com.xilan.base;
 
 import com.xilan.bengin.BaseServiceApplication;
+import com.xilan.bengin.entity.EventList;
 import com.xilan.bengin.entity.WXAccessTokenModel;
 import com.xilan.bengin.pojo.User;
 import com.xilan.bengin.service.Impl.LoginServiceImpl;
@@ -11,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * @author like
@@ -31,7 +34,7 @@ public class ServiceTest {
 
     @Test
     public void addTime(){
-        timeOpeService.addRecording("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+        timeOpeService.addRecording("o4dta5Ls4UVCXBR3aOImFGtNXbyQ",5,"like");
     }
 
     @Test
@@ -49,5 +52,17 @@ public class ServiceTest {
     public void getBeginTime(){
         long time = timeOpeService.isBeginTime("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
         System.out.println(time);
+    }
+
+    @Test
+    public void getTodayEventList(){
+        List<EventList> tmp = timeOpeService.getTodayEventList("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+
+        for (EventList eventList : tmp) {
+            System.out.println(eventList.getEvent());
+            System.out.println(eventList.getStudyTime());
+            System.out.println(eventList.getScore());
+            System.out.println("=============================================");
+        }
     }
 }

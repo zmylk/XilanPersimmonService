@@ -21,6 +21,10 @@ public class TimeOper {
      */
     public static String FORMAT_LONG = "yyyy-MM-dd HH:mm:ss";
     /**
+     * 英文全称  如：2010-12-01 23:15:06
+     */
+    public static String FORMAT_MIN = "yyyy-MM-dd HH:mm";
+    /**
      * 精确到毫秒的完整时间    如：yyyy-MM-dd HH:mm:ss.S
      */
     public static String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.S";
@@ -178,6 +182,13 @@ public class TimeOper {
         cal.setTime(lastTime);
         long time2 = cal.getTimeInMillis();
         long between_days=(time2-time1)/(1000*3600*24);
+        return Integer.parseInt(String.valueOf(between_days));
+    }
+
+    public static int hourBetween(Date preTime, Date lastTime) {
+        long time2 = preTime.getTime();
+        long time1 = lastTime.getTime();
+        long between_days=(time2-time1)/(1000*60);
         return Integer.parseInt(String.valueOf(between_days));
     }
 }
