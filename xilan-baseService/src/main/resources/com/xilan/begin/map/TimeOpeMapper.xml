@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xilan.begin.map.TimeOpeMapper">
+    
+    <resultMap id="BaseResultMap" type="com.xilan.begin.entity.TodaytPie">
+        <result column="event" property="event"/>
+        <result column="proportion" property="proportion"/>
+    </resultMap>
+
+    <resultMap id="LineResultMap" type="com.xilan.begin.entity.TodaytLine">
+        <result column="startime" property="startime"/>
+        <result column="endtime" property="endtime"/>
+    </resultMap>
+    
+    <select id="getOneDayTime" parameterType="java.lang.String" resultType="java.lang.Integer">
+      SELECT sum(evaluation1) as todaySum
+      FROM `time_ope`
+      where open_id = #{openid} and DATE_FORMAT(startime,'%Y-%m-%d') = curdate()
+    </select>
+
+
+    <select id="getTodaytPie" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+            t1.evaluation3 AS `event`,
+            round( sum( t1.evaluation1 ) / t2.total, 2 ) AS proportion
+        FROM
+            `time_ope` t1,
+            ( SELECT sum( evaluation1 ) AS total FROM time_ope WHERE open_id = #{openid} AND DATE_FORMAT( startime, '%Y-%m-%d' ) = curdate( ) ) t2
+        WHERE
+            t1.open_id = #{openid}
+            AND DATE_FORMAT( startime, '%Y-%m-%d' ) = curdate( )
+        GROUP BY
+            t1.evaluation3
+    </select>
+
+    <select id="getTodaytLine" parameterType="java.lang.String" resultMap="LineResultMap">
+        SELECT
+            startime,
+            endtime
+        FROM
+            `time_ope`
+        WHERE
+            open_id = #{openid} AND DATE_FORMAT(startime,'%Y-%m-%d') = curdate()
+    </select>
+</mapper>

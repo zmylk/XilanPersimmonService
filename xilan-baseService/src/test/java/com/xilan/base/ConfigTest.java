@@ -1,6 +1,6 @@
 package com.xilan.base;
 
-import com.xilan.bengin.BaseServiceApplication;
+import com.xilan.begin.BaseServiceApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

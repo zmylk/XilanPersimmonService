@@ -1,10 +1,15 @@
 package com.xilan.common.utils.time;
 
+import com.sun.org.omg.SendingContext.CodeBaseOperations;
+import com.xilan.common.utils.arithmetic.BasicOperations;
+
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author like
@@ -25,6 +30,10 @@ public class TimeOper {
      */
     public static String FORMAT_MIN = "yyyy-MM-dd HH:mm";
     /**
+     * 英文全称  如：2010-12-01-23
+     */
+    public static String FORMAT_HOUR = "yyyy-MM-dd-HH";
+    /**
      * 精确到毫秒的完整时间    如：yyyy-MM-dd HH:mm:ss.S
      */
     public static String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.S";
@@ -43,19 +52,69 @@ public class TimeOper {
 
 
     public static void main(String[] args) throws ParseException {
-        System.out.println(daysBetween(new Date(),new Date()));
-        System.out.println(getTimeString(new Date()));
-        System.out.println(getTimeDate(getTimeString()));
-        System.out.println("返回日期年份:"+getYear(new Date()));
-        System.out.println("返回月份："+getMonth(new Date()));
-        System.out.println("返回当天日份"+getDay(new Date()));
-        System.out.println("返回当天小时"+getHour(new Date()));
-        System.out.println("返回当天分"+getMinute(new Date()));
-        System.out.println("返回当天秒"+getSecond(new Date()));
-        System.out.println("返回当天毫秒"+getMillis(new Date()));
+//        System.out.println(daysBetween(new Date(),new Date()));
+//        System.out.println(getTimeString(new Date()));
+//        System.out.println(getTimeDate(getTimeString()));
+//        System.out.println("返回日期年份:"+getYear(new Date()));
+//        System.out.println("返回月份："+getMonth(new Date()));
+//        System.out.println("返回当天日份"+getDay(new Date()));
+//        System.out.println("返回当天小时"+getHour(new Date()));
+//        System.out.println("返回当天分"+getMinute(new Date()));
+//        System.out.println("返回当天秒"+getSecond(new Date()));
+//        System.out.println("返回当天毫秒"+getMillis(new Date()));
+
+        String date1 = "2020-04-03 14:35";
+        String date2 = "2020-04-03 16:20";
+        Date timeDate = getTimeDate(date1, TimeOper.FORMAT_MIN);
+        Date timeDate1 = getTimeDate(date2, TimeOper.FORMAT_MIN);
+        System.out.println(timeDate +"====="+ timeDate1);
+        Map<Integer, Double> needTime = getNeedTime(timeDate, timeDate1);
+        for (Map.Entry<Integer, Double> entry : needTime.entrySet()) {
+            System.out.println(entry.getKey()+":::"+entry.getValue());
+        }
+
 
     }
 
+    /**
+     * 获取时间区间学习情况
+     */
+    public static Map<Integer,Double> getNeedTime(Date preDate, Date lastDate){
+        //String starTime = getTimeString(preDate, TimeOper.FORMAT_HOUR);
+
+        int prehour = getHour(preDate);
+        int lasthour = getHour(lastDate);
+        long oneHour = 3600000L;
+        Map<Integer,Double> map = new HashMap<>();
+        for (int i=prehour;i<=lasthour;i++){
+            if (i==prehour){
+                long start = getTimeOnHour(preDate) + oneHour -  preDate.getTime() ;
+                String txfloat = BasicOperations.txfloat(start, oneHour);
+                Double aDouble = Double.valueOf(txfloat);
+                map.put(i,aDouble);
+            }else if (i==lasthour){
+                long end = lastDate.getTime() - getTimeOnHour(lastDate) ;
+                String txfloat = BasicOperations.txfloat(end, oneHour);
+                Double aDouble = Double.valueOf(txfloat);
+                map.put(i,aDouble);
+            }else {
+                map.put(i,1.0);
+            }
+        }
+        return map;
+    }
+
+    /**
+     * 得到精确到分钟的毫秒数
+     * 2020-04-02 15
+     */
+
+    public static long getTimeOnHour(Date date){
+        String timeString = getTimeString(date);
+        String[] split = timeString.split("[- :]");
+        String new_time = split[0] +"-" + split[1] +"-"+ split[2] + "-" + split[3];
+        return getTimeDate(new_time,TimeOper.FORMAT_HOUR).getTime();
+    }
 
     /**
      * 获取当前时间字符形式
@@ -69,6 +128,10 @@ public class TimeOper {
         SimpleDateFormat df = new SimpleDateFormat(FORMAT_FULL);
         return df.format(date);
     }
+    public static String getTimeString(Date date,String format) {
+        SimpleDateFormat df = new SimpleDateFormat(format);
+        return df.format(date);
+    }
 
     /**
      * 获取当前时间Date格式
@@ -76,6 +139,21 @@ public class TimeOper {
 
     public static Date getTimeDate(String date)  {
         SimpleDateFormat df = new SimpleDateFormat(FORMAT_FULL);
+        Date parse = null;
+        try {
+            parse = df.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return parse;
+    }
+
+    /**
+     * 获取当前时间Date格式
+     */
+
+    public static Date getTimeDate(String date ,String format)  {
+        SimpleDateFormat df = new SimpleDateFormat(format);
         Date parse = null;
         try {
             parse = df.parse(date);

@@ -1,12 +1,11 @@
 package com.xilan.base;
 
-import com.xilan.bengin.BaseServiceApplication;
-import com.xilan.bengin.entity.EventList;
-import com.xilan.bengin.entity.WXAccessTokenModel;
-import com.xilan.bengin.pojo.User;
-import com.xilan.bengin.service.Impl.LoginServiceImpl;
-import com.xilan.bengin.service.TimeOpeService;
-import com.xilan.bengin.service.UserService;
+import com.xilan.begin.BaseServiceApplication;
+import com.xilan.begin.entity.EventList;
+import com.xilan.begin.pojo.User;
+import com.xilan.begin.service.Impl.LoginServiceImpl;
+import com.xilan.begin.service.TimeOpeService;
+import com.xilan.begin.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author like
@@ -63,6 +63,14 @@ public class ServiceTest {
             System.out.println(eventList.getStudyTime());
             System.out.println(eventList.getScore());
             System.out.println("=============================================");
+        }
+    }
+
+    @Test
+    public void getTodayLine(){
+        Map<Integer, Double> line = timeOpeService.getLineList("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+        for (Map.Entry<Integer, Double> entry : line.entrySet()) {
+            System.out.println(entry.getKey()+"->"+entry.getValue());
         }
     }
 }

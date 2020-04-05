@@ -56,6 +56,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+        <!--mybatis起步依赖-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -70,7 +76,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!--指向主类-->
-                    <mainClass>com.xilan.bengin.BaseServiceApplication</mainClass>
+                    <mainClass>com.xilan.begin.BaseServiceApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
