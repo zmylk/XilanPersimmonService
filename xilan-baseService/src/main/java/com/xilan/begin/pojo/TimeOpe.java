@@ -38,6 +38,8 @@ public class TimeOpe {
      * 月
      */
     private Integer month;
+
+
     /**
      * 日
      */
@@ -66,5 +68,13 @@ public class TimeOpe {
      * 评价5
      */
     private Integer evaluation5;
+    /**
+     * 一个月第几周
+     */
+    private Integer week;
+    /**
+     * 一周中第几天
+     */
+    private Integer dayofweek;
 
 }

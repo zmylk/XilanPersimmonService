@@ -63,18 +63,35 @@ public class TimeOper {
 //        System.out.println("返回当天秒"+getSecond(new Date()));
 //        System.out.println("返回当天毫秒"+getMillis(new Date()));
 
-        String date1 = "2020-04-03 14:35";
-        String date2 = "2020-04-03 16:20";
-        Date timeDate = getTimeDate(date1, TimeOper.FORMAT_MIN);
-        Date timeDate1 = getTimeDate(date2, TimeOper.FORMAT_MIN);
-        System.out.println(timeDate +"====="+ timeDate1);
-        Map<Integer, Double> needTime = getNeedTime(timeDate, timeDate1);
-        for (Map.Entry<Integer, Double> entry : needTime.entrySet()) {
-            System.out.println(entry.getKey()+":::"+entry.getValue());
-        }
+//        String date1 = "2020-04-03 14:35";
+//        String date2 = "2020-04-03 16:20";
+//        Date timeDate = getTimeDate(date1, TimeOper.FORMAT_MIN);
+//        Date timeDate1 = getTimeDate(date2, TimeOper.FORMAT_MIN);
+//        System.out.println(timeDate +"====="+ timeDate1);
+//        Map<Integer, Double> needTime = getNeedTime(timeDate, timeDate1);
+//        for (Map.Entry<Integer, Double> entry : needTime.entrySet()) {
+//            System.out.println(entry.getKey()+":::"+entry.getValue());
+//        }
+
+        Double tenTime = getTenTime(new Date());
+        System.out.println(tenTime);
 
 
     }
+
+    /**
+     * 获取十进制时间
+     */
+    public static Double getTenTime(Date date){
+        double hour = (double) getHour(date);
+        long timeOnHour = getTimeOnHour(date);
+        long tmpTime = date.getTime() - timeOnHour;
+        long oneHour = 3600000L;
+        String txfloat = BasicOperations.txfloat(tmpTime, oneHour);
+        Double aDouble = Double.valueOf(txfloat);
+        return aDouble+hour;
+    }
+
 
     /**
      * 获取时间区间学习情况

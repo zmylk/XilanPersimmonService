@@ -41,6 +41,7 @@ public class LoginServiceImpl implements LoginService {
         }
         JSONObject rawDataJson = JSON.parseObject(rawData);
         WXSessionAndIdModel openIdAndSeesionKey = wxApiService.getOpenIdAndSeesionKey(code);
+
         String openid = openIdAndSeesionKey.getOpenid();
         String sessionKey = openIdAndSeesionKey.getSession_key();
         User user = userMapper.selectByPrimaryKey(openIdAndSeesionKey.getOpenid());
@@ -76,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
         }
         ArrayList<User> userArrayList = new ArrayList<>();
         userArrayList.add(user);
-        PageInfo<User> userPageInfo = new PageInfo<>(userArrayList);
+        //PageInfo<User> userPageInfo = new PageInfo<>(userArrayList);
 
         return user;
     }

@@ -14,7 +14,7 @@ import java.util.Map;
 public class TodayInformation {
     int time;
     int effectiveTime;
-    List<Map<String,Long>> line;
-    List<Map<String,Long>> Pie;
-    List<Integer> Period;
+    Map<Integer,Double> line;
+    Map<String,Double> Pie;
+    List<Double> Period;
 }

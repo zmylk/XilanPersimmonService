@@ -3,6 +3,8 @@ package com.xilan.begin.service.Impl;
 import com.xilan.begin.entity.WXAccessTokenModel;
 import com.xilan.begin.entity.WXSessionAndIdModel;
 import com.xilan.begin.service.WXApiService;
+import com.xilan.common.enums.ExceptionEnumm;
+import com.xilan.common.exception.LyException;
 import com.xilan.common.utils.JsonUtils;
 import com.xilan.common.utils.http.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +40,9 @@ public class WXApiServiceImpl implements WXApiService {
             wxResult = httpClientUtil.doGet(url, param);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (wxResult.contains("errcode")){
+            throw new LyException(ExceptionEnumm.NOT_CANT_GET_SESSIONID_OPENID);
         }
         WXSessionAndIdModel wxSessionAndIdModel = JsonUtils.parse(wxResult, WXSessionAndIdModel.class);
         return wxSessionAndIdModel;

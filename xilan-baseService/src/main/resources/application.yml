@@ -13,8 +13,8 @@ spring:
 
 xilan:
   base:
-    appid: wx5f2cfd0f5d5a3f1c
-    secret: a5e99a999e5f498a6d414da8d73b6f84
+    appid: wx511a67ed3b53c79a
+    secret: 96a3492750be092c7f473688f11854b9
 
 mybatis:
   type-aliases-package: com.xilan.begin.pojo

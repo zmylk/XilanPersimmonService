@@ -34,7 +34,7 @@ public class ServiceTest {
 
     @Test
     public void addTime(){
-        timeOpeService.addRecording("o4dta5Ls4UVCXBR3aOImFGtNXbyQ",5,"like");
+        timeOpeService.addRecordingBegin("1714020334666",3,"China");
     }
 
     @Test
@@ -70,6 +70,22 @@ public class ServiceTest {
     public void getTodayLine(){
         Map<Integer, Double> line = timeOpeService.getLineList("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
         for (Map.Entry<Integer, Double> entry : line.entrySet()) {
+            System.out.println(entry.getKey()+"->"+entry.getValue());
+        }
+    }
+
+    @Test
+    public void getTodayPeriod(){
+        List<Double> period = timeOpeService.getPeriod("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+        for (Double aDouble : period) {
+            System.out.println(aDouble);
+        }
+    }
+
+    @Test
+    public void getTodaypie(){
+        Map<String, Double> pie = timeOpeService.getpieList("o4dta5Ls4UVCXBR3aOImFGtNXbyQ");
+        for (Map.Entry<String, Double> entry : pie.entrySet()) {
             System.out.println(entry.getKey()+"->"+entry.getValue());
         }
     }

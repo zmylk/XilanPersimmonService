@@ -11,7 +11,17 @@
         <result column="startime" property="startime"/>
         <result column="endtime" property="endtime"/>
     </resultMap>
-    
+
+    <resultMap id="WeekLineResultMap" type="com.xilan.begin.entity.WeekLine">
+        <result column="day" property="day"/>
+        <result column="sumTime" property="sumTime"/>
+    </resultMap>
+
+    <resultMap id="MoonLineResultMap" type="com.xilan.begin.entity.MoonLine">
+        <result column="week" property="week"/>
+        <result column="sumTime" property="sumTime"/>
+    </resultMap>
+
     <select id="getOneDayTime" parameterType="java.lang.String" resultType="java.lang.Integer">
       SELECT sum(evaluation1) as todaySum
       FROM `time_ope`
@@ -22,7 +32,7 @@
     <select id="getTodaytPie" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT
             t1.evaluation3 AS `event`,
-            round( sum( t1.evaluation1 ) / t2.total, 2 ) AS proportion
+            ifnull(round( sum( t1.evaluation1 ) / t2.total, 2 ),0) AS proportion
         FROM
             `time_ope` t1,
             ( SELECT sum( evaluation1 ) AS total FROM time_ope WHERE open_id = #{openid} AND DATE_FORMAT( startime, '%Y-%m-%d' ) = curdate( ) ) t2
@@ -41,5 +51,26 @@
             `time_ope`
         WHERE
             open_id = #{openid} AND DATE_FORMAT(startime,'%Y-%m-%d') = curdate()
+    </select>
+    <!--一个周折线图-->
+    <select id="getWeekLine" resultMap="WeekLineResultMap">
+        SELECT
+        DATE_FORMAT(startime,'%m-%d') as day,
+        sum(evaluation1) as sumTime
+        FROM
+        `time_ope`
+        WHERE str_to_date(#{startDay},'%Y-%m-%d') &lt; startime and str_to_date(#{endDay},'%Y-%m-%d')&gt;startime and open_id = #{openid}
+        group by `day`
+    </select>
+
+    <!--一个月折线图-->
+    <select id="getMoonLine" resultMap="MoonLineResultMap">
+        SELECT
+            `week`,
+            sum(evaluation1) as sumTime
+        FROM
+            `time_ope`
+        where open_id = #{openid} and `year`= #{year} and `month`= #{moon} and `week` is not null
+        GROUP BY `week`
     </select>
 </mapper>

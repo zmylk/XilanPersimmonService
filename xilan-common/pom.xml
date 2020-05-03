@@ -33,10 +33,11 @@
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
+        <!--这个日志处理回合lg4j冲突，先去掉，看看哪里用到了-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-logging</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.slf4j</groupId>
