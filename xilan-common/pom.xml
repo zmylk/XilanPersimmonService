@@ -54,7 +54,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.8</version>
+            <version>2.10.0.pr1</version>
             <!--版本不一致注意，以后出问题更改-->
         </dependency>
         <dependency>
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.1</version>
+            <version>2.10.0.pr1</version>
         </dependency>
 
         <dependency>
